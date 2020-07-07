@@ -20,6 +20,10 @@ class LoggingHelper():
             LogFile
         )
 
+        # 如果當前位置底下不存在"Log/"就建立
+        if not os.path.exists(os.path.join(root_path,"Log")):
+            os.mkdir(os.path.join(root_path,"Log"))
+
     def __get_current_datetime(self):
         '''
         取得當前時間

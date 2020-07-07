@@ -4,10 +4,10 @@ import sys
 import requests
 import argparse
 import os
+import pytz
+import datetime as dtime
 
 from LoggingHelper import LoggingHelper
-
-LogHelper = LoggingHelper()
 
 parser = argparse.ArgumentParser()
 
@@ -17,12 +17,28 @@ parser.add_argument("-i","--input", type=str,
 ''' 取得配置參數組合 '''
 args = parser.parse_args()
 
+time_format_config = '%Y-%m-%d %H:%M:%S'
+
+def __get_current_datetime():
+    '''
+    取得當前時間
+    '''
+    return dtime.datetime.now(pytz.timezone("Asia/Taipei")).strftime(time_format_config)
+
+def __GenLogFileName():
+    
+    return "RunLog{}.txt".format(__get_current_datetime())
+
 
 if __name__ == "__main__":
-    
+
+    LogHelper = LoggingHelper(root_path= os.getcwd() , LogFile=__GenLogFileName())
+
+    get_input = str(args.input)
+
     # 判斷輸入位置是否存在
-    if os.path.exists(str(args.input)):
-        pass
+    if os.path.exists(get_input):
+        LogHelper.info("{} 位置存在，開始執行.".format(get_input))
     else:
         LogHelper.waring("輸入位置不存在!! 結束執行.")
 
