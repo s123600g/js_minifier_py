@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 .vscode/
-.Log/
+Log/
 *.js
 package/
